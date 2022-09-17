@@ -1,5 +1,16 @@
 {
   "name": "b-color",
   "version": "1.0.0",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "task:list": "gulp --tasks",
+    "generate:css-text-color": "gulp generate:css-text-color",
+    "generate:css-var-color": "gulp generate:css-var-color",
+    "generate:css-bg-color": "gulp generate:css-bg-color"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-file": "^0.4.0"
+  }
 }
