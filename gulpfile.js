@@ -1,6 +1,7 @@
 const gulp = require("gulp");
 const file = require("gulp-file");
 const cleanCSS = require("gulp-clean-css");
+const rename = require("gulp-rename");
 
 const colors = {
   surface: {
@@ -46,6 +47,23 @@ const colors = {
   },
 };
 
+/**
+ *
+ * @param {String} CSS
+ * @param {String} fileExtension
+ * @param {Function} callback
+ */
+async function generateFiles(CSS, fileName, callback) {
+  await file(`${fileName}.css`, CSS)
+    .pipe(gulp.dest("src"))
+    .pipe(gulp.dest("dist"))
+    .pipe(cleanCSS({ compatibility: "ie8" }))
+    .pipe(rename(`${fileName}.min.css`))
+    .pipe(gulp.dest("dist"));
+
+  callback();
+}
+
 gulp.task("generate:css-var-color", async function (finish) {
   let CSS = ":root {\n";
   for (const blockProperty in colors) {
@@ -67,12 +85,7 @@ gulp.task("generate:css-var-color", async function (finish) {
   }
   CSS += "}";
 
-  await file("variables.css", CSS)
-    .pipe(gulp.dest("src"))
-    .pipe(cleanCSS({ compatibility: "ie8" }))
-    .pipe(gulp.dest("dist"));
-
-  finish();
+  generateFiles(CSS, "variables", finish);
 });
 
 gulp.task("generate:css-text-color", async function (finish) {
@@ -94,12 +107,7 @@ gulp.task("generate:css-text-color", async function (finish) {
     }
   }
 
-  await file("text.css", CSS)
-    .pipe(gulp.dest("src"))
-    .pipe(cleanCSS({ compatibility: "ie8" }))
-    .pipe(gulp.dest("dist"));
-
-  finish();
+  generateFiles(CSS, "text", finish);
 });
 
 gulp.task("generate:css-bg-color", async function (finish) {
@@ -115,7 +123,7 @@ gulp.task("generate:css-bg-color", async function (finish) {
           if (elementProperty === "default") {
             CSS += `.b-color-bg__${blockProperty} {\n\tcolor: var(--${blockProperty});\n}\n`;
           } else {
-						const variableName = `${blockProperty}--${elementProperty}`
+            const variableName = `${blockProperty}--${elementProperty}`;
             CSS += `.b-color-bg__${variableName} {\n\tcolor: var(--${variableName});\n}\n`;
           }
         }
@@ -123,10 +131,5 @@ gulp.task("generate:css-bg-color", async function (finish) {
     }
   }
 
-  await file("background.css", CSS)
-    .pipe(gulp.dest("src"))
-    .pipe(cleanCSS({ compatibility: "ie8" }))
-    .pipe(gulp.dest("dist"));
-
-  finish();
+  generateFiles(CSS, "background", finish);
 });

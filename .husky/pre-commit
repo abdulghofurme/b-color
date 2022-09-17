@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run generate:css-var-color
+npm run generate:css-text-color
+npm run generate:css-bg-color
+git add .
