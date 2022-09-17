@@ -75,9 +75,9 @@ gulp.task("generate:css-var-color", async function (finish) {
           const element = block[elementProperty];
 
           if (elementProperty === "default") {
-            CSS += `--${blockProperty}: ${element};\n`;
+            CSS += `\t--${blockProperty}: ${element};\n`;
           } else {
-            CSS += `--${blockProperty}--${elementProperty}: ${element}\n`;
+            CSS += `\t--${blockProperty}--${elementProperty}: ${element}\n`;
           }
         }
       }
