@@ -266,7 +266,7 @@ gulp.task("generate:css-text-color", async function (finish) {
       for (const elementProperty in block) {
         if (Object.hasOwnProperty.call(block, elementProperty)) {
           if (elementProperty === "default") {
-            CSS += `.b-color-text__${blockProperty} {\n\tcolor: var(--${blockProperty};\n}\n`;
+            CSS += `.b-color-text__${blockProperty} {\n\tcolor: var(--${blockProperty});\n}\n`;
           } else {
             const variableName = `${blockProperty}--${elementProperty}`;
             CSS += `.b-color-text__${variableName} {\n\tcolor: var(--${variableName});\n}\n`;
