@@ -290,10 +290,10 @@ gulp.task("generate:css-bg-color", async function (finish) {
           const element = block[elementProperty];
 
           if (elementProperty === "default") {
-            CSS += `.b-color-bg__${blockProperty} {\n\tcolor: var(--${blockProperty});\n}\n`;
+            CSS += `.b-color-bg__${blockProperty} {\n\tbackground-color: var(--${blockProperty});\n}\n`;
           } else {
             const variableName = `${blockProperty}--${elementProperty}`;
-            CSS += `.b-color-bg__${variableName} {\n\tcolor: var(--${variableName});\n}\n`;
+            CSS += `.b-color-bg__${variableName} {\n\tbackground-color: var(--${variableName});\n}\n`;
           }
         }
       }
